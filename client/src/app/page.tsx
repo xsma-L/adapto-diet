@@ -3,9 +3,20 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { useState } from 'react'
+
+import Modal from '@/utils/modal'
+
 export default function Home() {
+
+  const [registerModal, setRegisterModal] = useState<boolean>(false)
+
+  const [connectModal, setConnectModal] = useState<boolean>(false)
+  
+
   return (
     <main className="">
+      <Modal />
       <div className="fixed top-0 bg-white z-30 flex justify-between items-center px-6 py-7 lg:py-10 w-full h-14 border-b-2 shadow border-black/20">
         <div className="flex items-center" id="logo">
           <div className="h-fit">
@@ -16,12 +27,8 @@ export default function Home() {
           </div>
         </div>
         <div className="h-fit w-fit flex">
-          <Link href="/inscription">
-            <button className="rounded-lg bg-primary text-white font-bold p-2 mr-6 transition">S'inscrire</button>
-          </Link>
-          <Link href="/">
-            <button className="rounded-lg border border-primary bg-white text-primary font-bold p-2">Se connecter</button>
-          </Link>
+          <button onClick={() => setRegisterModal(true)} className="rounded-lg bg-primary text-white font-bold p-2 mr-6 transition">S'inscrire</button>
+          <button onClick={() => setConnectModal(true)} className="rounded-lg border border-primary bg-white text-primary font-bold p-2">Se connecter</button>
         </div>
       </div>
       <section className="h-full w-full lg:h-[85vh] lg:relative">

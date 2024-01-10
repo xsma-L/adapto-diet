@@ -19,6 +19,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
+      <head>
+      <script src="https://kit.fontawesome.com/6d6060bedc.js" crossOrigin="anonymous"></script>
+      </head>
       <body className={`${inter.variable} ${epilogue.variable} ${fredoka.variable}`}>{children}</body>
     </html>
   )
