@@ -13,7 +13,7 @@ type Inputs = {
     password: string,
 }
 
-export default function Modal(){
+export default function RegisterModal(props: any){
   const {
     register,
     handleSubmit,
@@ -23,12 +23,12 @@ export default function Modal(){
   
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
 
-  console.log(watch("nom"))
-
     return(
-        <div className="fixed top-0 z-50 bg-black/95 w-screen h-screen">
-            <div className="flex flex-col items-center lg:flex-row justify-normal lg:justify-normal  bg-white w-[90%] h-[95%] md:w-[60%] rounded-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <FontAwesomeIcon icon={faX} size="lg" className="block absolute right-5 top-5" />
+        <>
+            <div className={`fixed ${props.open ? 'top-0 duration-500' : '-top-full duration-[1200ms]'} z-40 bg-black/95 w-screen h-screen transition-all`}>
+            </div>
+            <div className={`flex flex-col items-center lg:flex-row justify-normal lg:justify-normal  bg-white ${props.open ? ' top-1/2' : '-top-1/2'} w-[90%] h-[95%] md:w-[60%] rounded-xl absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-1000 z-50`}>
+                <FontAwesomeIcon onClick={() => props.setRegisterModal(false)} icon={faX} size="lg" className="block absolute right-5 top-5 hover:cursor-pointer"/>
 
                 <div className="hidden lg:block lg:w-[40%] lg:h-full lg:relative lg:rounded-l-xl">
                     <Image src="/modal-bg.jpeg" className="rounded-l-xl" fill={true}  alt="Mélange de fruits et légumes" />
@@ -82,6 +82,6 @@ export default function Modal(){
                     </form>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
