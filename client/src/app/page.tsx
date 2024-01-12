@@ -1,12 +1,10 @@
 "use client"
 
 import Image from 'next/image'
-import Link from 'next/link'
 
 import { useState } from 'react'
 
-import RegisterModal from '@/utils/registerModal'
-import SignIn from '@/utils/singIn'
+import Header from '@/utils/header'
 
 export default function Home() {
 
@@ -17,22 +15,7 @@ export default function Home() {
 
   return (
     <main className="">
-      <RegisterModal open={registerModal} setRegisterModal={setRegisterModal} />
-      <SignIn open={signInModal} setSignInModal={setSignInModal} />
-      <div className="fixed top-0 bg-white z-30 flex justify-between items-center px-6 py-7 lg:py-10 w-full h-14 border-b-2 shadow border-black/20">
-        <div className="flex items-center" id="logo">
-          <div className="h-fit">
-            <span className="font-fredoka font-bold lg:text-2xl">ADAPTO'DIET</span>
-          </div>
-          <div className="ml-2 h-6 lg:h-8 w-8 lg:w-10 relative">
-            <Image src="/logo.webp" fill={true} alt="adapto'diet" />
-          </div>
-        </div>
-        <div className="h-fit w-fit flex">
-          <button onClick={() => setRegisterModal(true)} className="rounded-lg bg-primary text-white font-bold p-2 mr-6 transition">S'inscrire</button>
-          <button onClick={() => setSignInModal(true)} className="rounded-lg border border-primary bg-white text-primary font-bold p-2">Se connecter</button>
-        </div>
-      </div>
+      <Header />
       <section className="h-full w-full lg:h-[85vh] lg:relative">
         <div className="px-6 text-center mt-10 py-5 lg:absolute lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2">
           <h1 className="font-epilogue font-extrabold text-2xl lg:text-5xl">Bienvenue sur ADAPTO’DIET</h1>
@@ -99,12 +82,12 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="h-full w-full lg:h-[50vh] lg:relative bg-primary text-white">
+      <section className="h-full w-full lg:h-[30vh] lg:relative bg-primary text-white">
         <div className="lg:w-[90%] px-6 text-center mt-10 py-5 lg:absolute lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2">
           <p className="font-inter font-extrabold text-center md:text-lg lg:text-2xl lg:mt-5">
             Commencez votre voyage avec ADAPTO’DIET, où chaque bouchée est une étape vers une vie plus saine et savoureuse!
           </p>
-          <button type="button" className="mt-10 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 lg:p-5 lg:text-lg">Commencer</button>
+          {/* <button type="button" className="mt-10 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 lg:p-5 lg:text-lg">Commencer</button> */}
         </div>
       </section>
     </main>
