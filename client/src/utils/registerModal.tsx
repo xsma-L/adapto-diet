@@ -39,7 +39,7 @@ export default function RegisterModal(props: any){
                         <div className="block h-[70px] w-[70px] relative">
                             <Image src="/logo.webp" className="rounded-l-xl" fill={true}  alt="Adapato'diet" />
                         </div>
-                        <span className="font-fredoka font-bold text-xl">ADAPTO'DIET</span>
+                        <span className="font-fredoka font-bold text-xl">ADAPTO&apos;DIET</span>
                     </div>
                     <h2 className="font-epilogue text-xl">Inscription</h2>
                     <form onSubmit={handleSubmit(onSubmit)} className="h-full py-5 flex flex-col justify-evenly items-center">
@@ -78,7 +78,7 @@ export default function RegisterModal(props: any){
                                 {errors.password && <span className="whitespace-nowrap text-sm">Ce champs est obligatoire</span>}
                             </div>
                         </div>
-                        <button type="submit" className="mt-8 rounded-lg bg-primary text-white font-bold py-2 px-6 mr-6 transition">S'inscrire</button>
+                        <button type="submit" className="mt-8 rounded-lg bg-primary text-white font-bold py-2 px-6 mr-6 transition">S&apos;inscrire</button>
                     </form>
                 </div>
             </div>
