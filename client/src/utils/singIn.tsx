@@ -37,7 +37,7 @@ export default function SignIn(props: any){
                         <div className="block h-[70px] w-[70px] relative">
                             <Image src="/logo.webp" className="rounded-l-xl" fill={true}  alt="Adapato'diet" />
                         </div>
-                        <span className="font-fredoka font-bold text-xl">ADAPTO'DIET</span>
+                        <span className="font-fredoka font-bold text-xl">ADAPTO&apos;DIET</span>
                     </div>
                     <h2 className="font-epilogue text-xl">Connexion</h2>
                     <form onSubmit={handleSubmit(onSubmit)} className="h-full py-5 flex flex-col justify-evenly items-center">

@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Epilogue, Fredoka } from 'next/font/google'
+import Script from 'next/script'
+
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'], display: 'swap', variable: '--font-inter'});
@@ -20,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <head>
-      <script src="https://kit.fontawesome.com/6d6060bedc.js" crossOrigin="anonymous"></script>
+      <Script src="https://kit.fontawesome.com/6d6060bedc.js" strategy='lazyOnload' crossOrigin="anonymous"></Script>
       </head>
       <body className={`${inter.variable} ${epilogue.variable} ${fredoka.variable}`}>{children}</body>
     </html>

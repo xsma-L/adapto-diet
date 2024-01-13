@@ -34,8 +34,8 @@ export default function Home() {
             <h2 className="font-epilogue font-extrabold text-lg lg:text-2xl lg:text-left lg:mt-5">Une diététique Redéfinie</h2>
             <p className="font-inter mt-7 lg:text-xl lg:leading-7 lg:text-left">
               Manger sain ne devrait jamais sacrifier la saveur.<br />
-              Chez ADAPTO’DIET, nous redéfinissons la diététique en intégrant l'expertise culinaire.<br /><br />
-              Profitez d'une variété de recettes gastronomiques qui prennent soin de votre bien-être.
+              Chez ADAPTO&apos;DIET, nous redéfinissons la diététique en intégrant l&apos;expertise culinaire.<br /><br />
+              Profitez d&apos;une variété de recettes gastronomiques qui prennent soin de votre bien-être.
             </p>
           </div>
         </div>
@@ -48,7 +48,7 @@ export default function Home() {
           <div className="basis-1/2">
             <h2 className="font-epilogue font-extrabold text-lg lg:text-2xl lg:mt-5 lg:text-right">Variété de Saveurs Santé</h2>
             <p className="font-inter mt-7 lg:text-xl lg:leading-7 lg:text-right">
-              Explorez nos menus diététiques diversifiés, élaborés pour s'adapter à toutes les préférences alimentaires.<br /><br />
+              Explorez nos menus diététiques diversifiés, élaborés pour s&apos;adapter à toutes les préférences alimentaires.<br /><br />
               De la cuisine méditerranéenne aux options végétariennes, découvrez des recettes délicieuses adaptées à votre style de vie.
             </p>
           </div>
@@ -62,7 +62,7 @@ export default function Home() {
           <div className="basis-1/2">
             <h2 className="font-epilogue font-extrabold text-lg lg:text-2xl lg:mt-5 lg:text-left">Plans de Repas Personnalisés avec Expertise Virtuelle</h2>
             <p className="font-inter mt-7 lg:text-xl lg:leading-7 lg:text-left">
-              Notre particularité réside dans l'utilisation de l'expertise virtuelle pour créer des plans de repas personnalisés.<br /> <br />
+              Notre particularité réside dans l&apos;utilisation de l&apos;expertise virtuelle pour créer des plans de repas personnalisés.<br /> <br />
               Grâce à cela, ADAPTO’DIET assure que chaque repas contribue à votre bien-être tout en satisfaisant vos papilles.
             </p>
           </div>
@@ -77,7 +77,7 @@ export default function Home() {
             <h2 className="font-epilogue font-extrabold text-lg lg:text-2xl lg:mt-5 lg:text-left">Savourer la Gourmandise en Toute Santé</h2>
             <p className="font-inter mt-7 lg:text-xl lg:leading-7 lg:text-left">
             Rejoignez-nous dans cette aventure culinaire où la gourmandise et la santé se rencontrent harmonieusement.
-            <br /><br /><strong>ADAPTO'DIET</strong>vous accompagne dans votre quête d'un mode de vie équilibré, en mettant en avant le plaisir de la table tout en respectant vos objectifs diététiques.
+            <br /><br /><strong>ADAPTO&apos;DIET</strong>vous accompagne dans votre quête d&apos;un mode de vie équilibré, en mettant en avant le plaisir de la table tout en respectant vos objectifs diététiques.
             </p>
           </div>
         </div>
