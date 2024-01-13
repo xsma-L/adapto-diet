@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  backend:
+    container_name: server
+    image: backend
+    build:
+      context: ./server
+      dockerfile: server.dockerfile
+    ports:
+      - "4000:4000"
+    environment:
+      - DATABASE_URL=postgresql://admin:ismaL@db:5432/adaptodiet?schema=public
+    depends_on:
+      - db
+  db:
+    container_name: db
+    image: postgres:12
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: ismaL
+      POSTGRES_DB: adaptodiet
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata: {}
