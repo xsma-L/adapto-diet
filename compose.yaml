@@ -24,8 +24,11 @@ services:
       - "4000:4000"
     environment:
       - DATABASE_URL=postgresql://admin:ismaL@db:5432/adaptodiet?schema=public
+      - JWT_SECRET=b6c5f41fa623a6e7048be5f66c842d123963536fc1c4d2cb92434d55af365283
     depends_on:
       - db
+    volumes:
+      - ./server:/app
   db:
     container_name: db
     image: postgres:12

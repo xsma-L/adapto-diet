@@ -15,6 +15,10 @@ app.use((req, res, next) => {
   next();
 });
 
+const authRoutes = require('./api/routes/authRoutes');
+
+app.use('/api/auth', authRoutes);
+
 //test api with error handling
 app.get('/test', (req, res, next) => {
   try {
@@ -34,29 +38,6 @@ app.get('/users', async (req, res, next) => {
   }
 });
 
-//get user by id
-app.get('/users/:id', async (req, res, next) => {
-  try {
-    const user = await prisma.user.findUnique({
-      where: { id: Number(req.params.id) },
-    });
-    res.status(200).json(user);
-  } catch (err) {
-    next(err);
-  }
-});
-
-//create user
-app.post('/users', async (req, res, next) => {
-  try {
-    const user = await prisma.user.create({
-      data: { ...req.body },
-    });
-    res.status(201).json(user);
-  } catch (err) {
-    next(err);
-  }
-});
 
 //update user
 app.put('/users/:id', async (req, res, next) => {
@@ -85,4 +66,4 @@ app.delete('/users/:id', async (req, res, next) => {
 
 //Start server
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Adatop'diet's server running on port ${PORT}`));
