@@ -23,7 +23,7 @@ services:
     ports:
       - "4000:4000"
     environment:
-      - DATABASE_URL=postgresql://admin:ismaL@db:5432/adaptodiet?schema=public
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/adaptodiet?schema=public
       - JWT_SECRET=b6c5f41fa623a6e7048be5f66c842d123963536fc1c4d2cb92434d55af365283
     depends_on:
       - db
@@ -34,13 +34,26 @@ services:
     image: postgres:12
     restart: always
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: ismaL
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: adaptodiet
     ports:
       - 5432:5432
     volumes:
       - pgdata:/var/lib/postgresql/data
-
+  prisma-studio:
+    container_name: prisma-studio
+    image: prisma-studio-container # Utilisez l'image Docker que vous avez construite pour Prisma Studio
+    build:
+      context: ./prisma-studio # Spécifiez le chemin vers le dossier contenant le Dockerfile de Prisma Studio
+      dockerfile: prisma-studio.dockerfile # Nom du Dockerfile de Prisma Studio
+    ports:
+      - "5555:5555" # Port pour Prisma Studio, modifiez-le si nécessaire
+    depends_on:
+      - backend
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/adaptodiet?schema=public # Même URL que celle dans le service backend
+    volumes:
+      - ./server/prisma:/app/prisma
 volumes:
   pgdata: {}
