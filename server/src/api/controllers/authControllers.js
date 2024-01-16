@@ -5,10 +5,15 @@ const jwt = require("jsonwebtoken")
 const prismaClient = new prisma.PrismaClient()
 
 exports.signup = async (req, res) => {
-    const { first_name, last_name, email, password } = req.body
+    const { first_name, last_name, email, password } = req.body.data
     const hashedPassword = await bcrypt.hash(password, 12)
 
     try {
+        const verifyEmail = await prismaClient.user.findUnique({ where: { email } })
+        if(verifyEmail) {
+           return res.status(401).send('User already exist')
+        }
+
         const user = await prismaClient.user.create({
             data: {
                 first_name,
