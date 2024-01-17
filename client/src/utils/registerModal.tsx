@@ -1,7 +1,7 @@
 "use client"
 
-import useSWR from 'swr';
-import axios from 'axios';
+import axios from 'axios'
+
 
 import Image from 'next/image'
 

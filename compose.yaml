@@ -25,6 +25,8 @@ services:
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/adaptodiet?schema=public
       - JWT_SECRET=b6c5f41fa623a6e7048be5f66c842d123963536fc1c4d2cb92434d55af365283
+      - CHATGPT_SECRET_KEY=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
+      - GMAIL_KEY=kxlx trom ykod cfxs
     depends_on:
       - db
     volumes:
