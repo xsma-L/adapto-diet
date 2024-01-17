@@ -1,10 +1,6 @@
 "use client"
 
 import axios from 'axios'
-<<<<<<< HEAD
-
-=======
->>>>>>> front
 
 import Image from 'next/image'
 
