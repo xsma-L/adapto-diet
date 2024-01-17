@@ -1,7 +1,10 @@
 "use client"
 
 import axios from 'axios'
+<<<<<<< HEAD
 
+=======
+>>>>>>> front
 
 import Image from 'next/image'
 
@@ -36,11 +39,9 @@ export default function RegisterModal(props: any){
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         await axios.post<ApiResponse>(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/signup`, { data })
         .then(res => {
-            console.log(res)
             setRegistred(true)
         }).catch(err => {
             if (err.response.data === "User already exist") {
-                console.log("erreur =>", err.response)
                 setWrongEmail(true)
             }
         })
