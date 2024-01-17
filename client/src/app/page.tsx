@@ -4,8 +4,6 @@ import Image from 'next/image'
 
 import { useState } from 'react'
 
-import Header from '@/utils/header'
-
 export default function Home() {
 
   const [registerModal, setRegisterModal] = useState<boolean>(false)
@@ -15,7 +13,6 @@ export default function Home() {
 
   return (
     <main className="">
-      <Header />
       <section className="h-full w-full lg:h-[85vh] lg:relative">
         <div className="px-6 text-center mt-10 py-5 lg:absolute lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2">
           <h1 className="font-epilogue font-extrabold text-2xl lg:text-5xl">Bienvenue sur ADAPTO’DIET</h1>
