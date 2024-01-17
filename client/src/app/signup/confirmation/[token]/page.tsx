@@ -1,8 +1,25 @@
 "use client"
 
 import axios from 'axios'
+import { useEffect, useState } from 'react'
+
+interface ApiResponse {
+    data: any
+}
 
 export default function RegisterConfirm({ params }: { params: { token: string } }) {
+
+    const [verified, setverified] = useState<Boolean> (false);
+
+    useEffect(() => {
+        const verifyToken = async () => {
+            const verify = await axios.post<ApiResponse>(`${process.env.NEXT_PUBLIC_API_URL}/api/verify_email`, { data: { token: params.token }})
+            .then(res => {
+                console.log(res)
+            }).catch(err => console.log('erreur =>', err))
+        }
+        verifyToken()
+    }, [])
 
     console.log('token =>', params.token)
     return(
