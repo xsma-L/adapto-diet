@@ -26,7 +26,7 @@ export default function SignIn(props: any){
             <div className={`${props.open ? 'top-0 duration-500' : '-top-full duration-[1200ms]'} w-screen h-screen fixed z-40 bg-black/95 transition-all `}>
             </div>
             <div className={`flex flex-col items-center lg:flex-row justify-normal lg:justify-normal z-50 bg-white ${props.open ? ' top-1/2' : '-top-1/2'} w-[90%] h-[95%] md:w-[60%] lg:h-[70%] rounded-xl absolute left-1/2 transform -translate-y-1/2 -translate-x-1/2 transition-all duration-1000	`}>
-                <FontAwesomeIcon icon={faX} size="lg" className="block absolute right-5 top-5 hover:cursor-pointer" onClick={() => props.setSignInModal(false)}/>
+                <FontAwesomeIcon icon={faX} size="lg" className="block absolute right-5 top-5 hover:cursor-pointer z-50" onClick={() => props.setSignInModal(false)}/>
 
                 <div className="hidden lg:block lg:w-[40%] lg:h-full lg:relative lg:rounded-l-xl">
                     <Image src="/modal-bg.jpeg" className="rounded-l-xl" fill={true}  alt="Mélange de fruits et légumes" />

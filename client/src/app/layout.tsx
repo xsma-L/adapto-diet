@@ -29,7 +29,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${epilogue.variable} ${fredoka.variable}`}>
         <Header />
-        <div className="mt-20">
+        <div id="main-container">
           {children}
         </div>
         </body>
