@@ -1,20 +1,18 @@
 "use client"
 
+
+import Image from "next/image"
+
+import { useState } from "react"
+import { useForm, SubmitHandler } from "react-hook-form"
+import { SignUpSchema, SignUpSchemaType } from "../utils/forms/schema/signUp"
+import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
 
-import Image from 'next/image'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faUser, faEnvelope, faLock, faX } from "@fortawesome/free-solid-svg-icons"
 
-import { useState } from 'react'
-import { useForm, SubmitHandler } from "react-hook-form"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faEnvelope, faLock, faX } from '@fortawesome/free-solid-svg-icons'
 
-type Inputs = {
-    first_name: string,
-    last_name: string,
-    email: string,
-    password: string,
-}
 
 interface ApiResponse {
     data: any
@@ -30,9 +28,9 @@ export default function RegisterModal(props: any){
         handleSubmit,
         watch,
         formState: { errors },
-    } = useForm<Inputs>()
+    } = useForm<SignUpSchemaType>({ resolver: zodResolver(SignUpSchema) })
   
-    const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const onSubmit: SubmitHandler<SignUpSchemaType> = async (data) => {
         await axios.post<ApiResponse>(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/signup`, { data })
         .then(res => {
             setRegistred(true)
@@ -84,7 +82,7 @@ export default function RegisterModal(props: any){
                                             <input type="text" {...register("last_name", {required: true})} className="w-[80%] focus-visible:outline-none" placeholder="Nom" />
                                             <FontAwesomeIcon icon={faUser} size="lg" className="ml-2"/>
                                         </div>
-                                        {errors.last_name && <span className="whitespace-nowrap text-sm">Ce champs est obligatoire</span>}
+                                        {errors.last_name && <span className="whitespace-nowrap text-sm">{errors.last_name.message}</span>}
                                     </div>
 
                                     <div className="mt-6 lg:mt-0 w-[100%] lg:w-[45%]">
@@ -92,7 +90,7 @@ export default function RegisterModal(props: any){
                                             <input type="text" {...register("first_name", {required: true})} className="w-[80%] focus-visible:outline-none" placeholder="Prénom" />
                                             <FontAwesomeIcon icon={faUser} size="lg" className="ml-2"/>
                                         </div>
-                                        {errors.first_name && <span className="whitespace-nowrap text-sm">Ce champs est obligatoire</span>}
+                                        {errors.first_name && <span className="whitespace-nowrap text-sm">{errors.first_name.message}</span>}
                                     </div>
                                 </div>
 
@@ -102,7 +100,7 @@ export default function RegisterModal(props: any){
                                             <input type="email" {...register("email", {required: true})} className="w-[80%] focus-visible:outline-none" placeholder="Email" onChange={() => wrongEmail && setWrongEmail(false)}/>
                                             <FontAwesomeIcon icon={faEnvelope} size="lg" className="ml-2"/>
                                         </div>
-                                        {errors.email && <span className="whitespace-nowrap text-sm">Cette adresse mail est déja utilisée</span>}
+                                        {errors.email && <span className="whitespace-nowrap text-sm">{errors.email.message}</span>}
                                     </div>
 
                                     <div className="mt-6 lg:mt-0 w-[100%] lg:w-[45%]">
@@ -110,7 +108,7 @@ export default function RegisterModal(props: any){
                                             <input type="password" {...register("password", {required: true})} className="w-[80%] focus-visible:outline-none" placeholder="Mot de passe" />
                                             <FontAwesomeIcon icon={faLock} size="lg" className="ml-2"/>
                                         </div>
-                                        {errors.password && <span className="whitespace-nowrap text-sm">Ce champs est obligatoire</span>}
+                                        {errors.password && <span className="whitespace-nowrap text-sm">{errors.password.message}</span>}
                                     </div>
                                 </div>
                                 <button type="submit" className="mt-8 rounded-lg bg-primary text-white font-bold py-2 px-6 mr-6 transition">S&apos;inscrire</button>

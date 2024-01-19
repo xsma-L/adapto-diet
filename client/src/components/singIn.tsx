@@ -1,14 +1,17 @@
 "use client"
 
-import Image from 'next/image'
+import Image from "next/image"
 
 import { useForm, SubmitHandler } from "react-hook-form"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faEnvelope, faLock, faX } from '@fortawesome/free-solid-svg-icons'
+import { SignInSchema, SignInSchemaType } from "../utils/forms/schema/signIn"
+import { zodResolver } from "@hookform/resolvers/zod"
+import axios from "axios"
 
-type Inputs = {
-    email: string,
-    password: string,
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faUser, faEnvelope, faLock, faX } from "@fortawesome/free-solid-svg-icons"
+
+interface ApiResponse {
+    data: any
 }
 
 export default function SignIn(props: any){
@@ -17,9 +20,18 @@ export default function SignIn(props: any){
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<Inputs>()
+  } = useForm<SignInSchemaType>({ resolver: zodResolver(SignInSchema)})
   
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
+  const onSubmit: SubmitHandler<SignInSchemaType> = async (data) => {
+    try {
+        const request = await axios.post<ApiResponse>(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, { data })
+        console.log(request)
+    } catch (error) {
+        console.log(error)
+    }
+
+
+  }
 
     return(
         <>
@@ -52,7 +64,7 @@ export default function SignIn(props: any){
 
                             <div className="mt-6 w-[100%]">
                                 <div className={`p-2 w-full h-9 border rounded-md ${errors.password ?'border-red-600 border-2': 'border-black'} focus-within:border-2 focus-within:border-primary transition-all`}>
-                                    <input type="text" {...register("password", {required: true})} className="w-[80%] focus-visible:outline-none" placeholder="Mot de passe" />
+                                    <input type="password" {...register("password", {required: true})} className="w-[80%] focus-visible:outline-none" placeholder="Mot de passe" />
                                     <FontAwesomeIcon icon={faLock} size="lg" className="ml-2"/>
                                 </div>
                                 {errors.password && <span className="whitespace-nowrap text-sm">Ce champs est obligatoire</span>}
