@@ -5,8 +5,8 @@ import { Pivot as Hamburger } from 'hamburger-react'
 
 import Image from 'next/image'
 
-import RegisterModal from './registerModal'
-import SignIn from './singIn'
+import RegisterModal from '../components/registerModal'
+import SignIn from '../components/singIn'
 import ResponsiveMenu from './responsiveMenu'
 
 export default function Header(){
