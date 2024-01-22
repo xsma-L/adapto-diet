@@ -32,8 +32,7 @@ export default function RootLayout({
         <div id="main-container">
           {children}
         </div>
-        </body>
-
+      </body>
     </html>
   )
 }
