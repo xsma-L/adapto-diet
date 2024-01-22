@@ -66,7 +66,7 @@ exports.emailConfirmation = async (req, res) => {
 }
 
 exports.login = async (req, res) => {
-    const { email, password } = req.body.data
+    const { email, password } = req.body
 
     try {
         const user = await prismaClient.user.findUnique({ where: { email } })
