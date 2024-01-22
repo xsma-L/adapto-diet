@@ -1,17 +1,21 @@
 "use client"
 
 import Image from "next/image"
+import { useRouter } from 'next/navigation'
 
 import { useForm, SubmitHandler } from "react-hook-form"
 import { SignInSchema, SignInSchemaType } from "../utils/forms/schema/signIn"
 import { zodResolver } from "@hookform/resolvers/zod"
 import axios from "axios"
 
+import Cookies from "js-cookie"
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUser, faEnvelope, faLock, faX } from "@fortawesome/free-solid-svg-icons"
 
 interface ApiResponse {
-    data: any
+    userId: string
+    token: string
 }
 
 export default function SignIn(props: any){
@@ -21,11 +25,16 @@ export default function SignIn(props: any){
     watch,
     formState: { errors },
   } = useForm<SignInSchemaType>({ resolver: zodResolver(SignInSchema)})
+
+  const router = useRouter()
   
   const onSubmit: SubmitHandler<SignInSchemaType> = async (data) => {
     try {
-        const request = await axios.post<ApiResponse>(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, { data })
-        console.log(request)
+        const request = await axios.post<ApiResponse>(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, data )
+        Cookies.set('token', request.data.token, { expires: 1 })
+        Cookies.set('userId', request.data.userId, { expires: 1 })
+
+        router.push('/dashboard')
     } catch (error) {
         console.log(error)
     }
