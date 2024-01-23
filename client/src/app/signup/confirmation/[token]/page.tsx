@@ -8,11 +8,11 @@ interface ApiResponse {
     data: any
 }
 
-export default function RegisterConfirm({ searchParams }: { searchParams: { token: string } }) {
+export default function RegisterConfirm({ params }: { params: { token: string } }) {
 
     const [verified, setVerified] = useState<string> ("loading");
 
-    useEffect(() => {    
+    useEffect(() => {
         if (verified === 'loading') {
             verifyToken();
         }
@@ -21,7 +21,7 @@ export default function RegisterConfirm({ searchParams }: { searchParams: { toke
     const verifyToken = async () => {
         console.log("verified =>", verified)
         try {
-            const response = await axios.post<ApiResponse>(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/verify_email`, { data: { token: searchParams.token } });
+            const response = await axios.post<ApiResponse>(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/verify_email`, { token: params.token });
             if (response.data) {
                 setVerified('done');
             }
