@@ -18,7 +18,12 @@ interface ApiResponse {
     token: string
 }
 
-export default function SignIn(props: any){
+export default function SignIn({ open, setSignInModal, setConnected } : 
+    {
+        open: boolean, 
+        setSignInModal: React.Dispatch<React.SetStateAction<boolean>>,
+        setConnected: React.Dispatch<React.SetStateAction<boolean>>
+    }  ){
   const {
     register,
     handleSubmit,
@@ -30,11 +35,14 @@ export default function SignIn(props: any){
   
   const onSubmit: SubmitHandler<SignInSchemaType> = async (data) => {
     try {
-        const request = await axios.post<ApiResponse>(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, data )
+        const request = await axios.post<ApiResponse>(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, data)
         Cookies.set('token', request.data.token, { expires: 1 })
         Cookies.set('userId', request.data.userId, { expires: 1 })
 
-        router.push('/dashboard')
+        setConnected(true)
+        setSignInModal(false)
+        
+        router.push('/mon-alimentation')
     } catch (error) {
         console.log(error)
     }
@@ -44,10 +52,10 @@ export default function SignIn(props: any){
 
     return(
         <>
-            <div className={`${props.open ? 'top-0 duration-500' : '-top-full duration-[1200ms]'} w-screen h-screen fixed z-40 bg-black/95 transition-all `}>
+            <div className={`${open ? 'top-0 duration-500' : '-top-full duration-[1200ms]'} w-screen h-screen fixed z-40 bg-black/95 transition-all `}>
             </div>
-            <div className={`flex flex-col items-center lg:flex-row justify-normal lg:justify-normal z-50 bg-white ${props.open ? ' top-1/2' : '-top-1/2'} w-[90%] h-[95%] md:w-[60%] lg:h-[70%] rounded-xl absolute left-1/2 transform -translate-y-1/2 -translate-x-1/2 transition-all duration-1000	`}>
-                <FontAwesomeIcon icon={faX} size="lg" className="block absolute right-5 top-5 hover:cursor-pointer z-50" onClick={() => props.setSignInModal(false)}/>
+            <div className={`flex flex-col items-center lg:flex-row justify-normal lg:justify-normal z-50 bg-white ${open ? ' top-1/2' : '-top-1/2'} w-[90%] h-[95%] md:w-[60%] lg:h-[70%] rounded-xl absolute left-1/2 transform -translate-y-1/2 -translate-x-1/2 transition-all duration-1000	`}>
+                <FontAwesomeIcon icon={faX} size="lg" className="block absolute right-5 top-5 hover:cursor-pointer z-50" onClick={() => setSignInModal(false)}/>
 
                 <div className="hidden lg:block lg:w-[40%] lg:h-full lg:relative lg:rounded-l-xl">
                     <Image src="/modal-bg.jpeg" className="rounded-l-xl" fill={true}  alt="Mélange de fruits et légumes" />
