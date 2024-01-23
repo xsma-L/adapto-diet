@@ -42,7 +42,7 @@ export default function SignIn({ open, setSignInModal, setConnected } :
         setConnected(true)
         setSignInModal(false)
         
-        router.push('/dashboard')
+        router.push('/mon-alimentation')
     } catch (error) {
         console.log(error)
     }

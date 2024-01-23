@@ -110,8 +110,8 @@ export default function Header(){
                             </div>
                         :
                             <>
-                                <button onClick={() => setRegisterModal(true)} className="rounded-lg bg-primary text-white font-bold p-2 mr-6 transition">S&apos;inscrire</button>
-                                <button onClick={() => setSignInModal(true)} className="rounded-lg border border-primary bg-white text-primary font-bold p-2">Se connecter</button>
+                                <button onClick={() => {window.scrollTo({top: 0, left: 0, behavior: 'smooth'}); setRegisterModal(true)}} className="rounded-lg bg-primary text-white font-bold p-2 mr-6 transition">S&apos;inscrire</button>
+                                <button onClick={() => {window.scrollTo({top: 0, left: 0, behavior: 'smooth'}); setSignInModal(true)}} className="rounded-lg border border-primary bg-white text-primary font-bold p-2">Se connecter</button>
                             </>       
                     }
                     
