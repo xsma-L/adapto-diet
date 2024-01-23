@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
   binaryTargets = ["native", "darwin-arm64", "linux-arm64-openssl-3.0.x"]
@@ -11,7 +8,6 @@ datasource db {
   url = env("DATABASE_URL")
 }
 
-//User with id as int autoincrement, name as string, email as string
 model User {
   id Int @id @default(autoincrement())
   first_name String
@@ -19,4 +15,30 @@ model User {
   email String @unique
   password String
   verified Boolean @default(false)
+  info Informations?
+}
+
+model Informations {
+  id Int @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id])
+  userId Int @unique
+  objectif_principal String
+  objectifs_specifiques Json
+  niveau_activite_quotidienne String
+  exercices_reguliers Json
+  nature_activites Json
+  frequence_activites String
+  duree_activites String
+  regime_alimentaire_actuel String
+  habitudes_alimentaires_particulieres Json
+  aliments_evites Json
+  allergies_intolerances Json
+  poids_actuel Int
+  taille Int
+  pourcentage_graisse_corporelle String
+  conditions_medicales Json
+  repas_par_jour Int
+  preferences_temps_repas Json
+  objectifs_nutritionnels Json
+  autres_considerations Json
 }
