@@ -11,7 +11,7 @@ export default function MonAlimentation() {
 
         const handleFormSubmit = async (formId: String, responseId: string) => {
             try {
-                const createDietProfile = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/mon-alimentation`, { formId: formId, responseId: responseId })
+                const createDietProfile = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/create-diet-profile`, { formId: formId, responseId: responseId })
                 console.log(createDietProfile)
             } catch (error) {
                 console.log("error =>", error)
