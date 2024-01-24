@@ -16,8 +16,10 @@ app.use((req, res, next) => {
 });
 
 const authRoutes = require('./api/routes/authRoutes');
+const dietProfileRoutes = require('./api/routes/detProfileRoutes')
 
 app.use('/api/auth', authRoutes);
+app.use("/api/diet", dietProfileRoutes)
 
 //test api with error handling
 app.get('/test', (req, res, next) => {

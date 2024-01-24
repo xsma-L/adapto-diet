@@ -7,7 +7,7 @@ const mailer = require("../../nodemailer")
 const prismaClient = new prisma.PrismaClient()
 
 exports.signup = async (req, res) => {
-    const { first_name, last_name, email, password } = req.body.data
+    const { first_name, last_name, email, password } = req.body
     const hashedPassword = await bcrypt.hash(password, 12)
 
     try {
@@ -44,10 +44,8 @@ exports.signup = async (req, res) => {
 }
 
 exports.emailConfirmation = async (req, res) => {
-    const { token } = req.body.data
+    const { token } = req.body
     const decoded = jwt.decode(token)
-
-    console.log('token data =>', token)
 
     const updateUser = await prismaClient.user.update({
         where: {
@@ -74,7 +72,7 @@ exports.login = async (req, res) => {
             return res.status(401).json({ message: 'Email or password is incorrect' })
         }
 
-        const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' })
+        const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '6h' })
         res.status(200).json({ token, userId: user.id })
     } catch (error) {
         res.status(500).json({ message: 'Login failed' })
