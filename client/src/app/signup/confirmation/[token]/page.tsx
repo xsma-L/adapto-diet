@@ -19,7 +19,6 @@ export default function RegisterConfirm({ params }: { params: { token: string } 
     }, [])
 
     const verifyToken = async () => {
-        console.log("verified =>", verified)
         try {
             const response = await axios.post<ApiResponse>(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/verify_email`, { token: params.token });
             if (response.data) {
