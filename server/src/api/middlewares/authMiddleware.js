@@ -18,15 +18,13 @@ exports.isLogged = (req, res, next) => {
         return res.status(401).json({ message: 'Token non fourni' });
     }
 
-    console.log(token)
-
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
           return res.status(401).json({ message: 'Token invalide' });
         }
         
         // Si le token est valide, vous pouvez stocker les informations de l'utilisateur dans req.user
-        req.user = decoded
+        res.locals.user = decoded
         next() // Passez à la route suivante
     })
 }
