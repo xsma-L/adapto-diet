@@ -1,20 +1,28 @@
 const axios = require("axios")
+const { PrismaClient } = require('@prisma/client')
 
 exports.createDietProfile = async (req, res) => {
     const { formId, responseId } = req.body
-
+    const { userId } = res.locals.user
+    
     try {
+        const token = req.headers.authorization
+
+
         const getFormResult = await axios.get(`https://api.typeform.com/forms/${formId}/responses?included_response_ids=${responseId}`, {
             headers: { "Authorization": `Bearer ${process.env.TYPEFORM_TOKEN}`}
         })
 
         const form = getFormResult.data.items[0].answers
+        const informationsData = await sortFormData(form)
+        informationsData["userId"] = userId
 
-        const values = await sortFormData(form)
+        const prisma = new PrismaClient();
+        const newInformations = await prisma.informations.create({
+            data: informationsData,
+        })
 
-        console.log(values)
-
-        res.status(200).send(getFormResult.data.items[0].answers)
+        res.status(200).send("infos saved")
     } catch (error) {
         console.log('error =>', error)
         res.status(500).json({ message: "error" })
@@ -49,7 +57,7 @@ const sortFormData = (data) => {
     
         const value = type === "multiple_choice" ? item.choice.label : item[Object.keys(item).pop()]
         const newKey = key.replace("question_", "")
-        newData[newKey] = !value ? "aucun" : value
+        newData[newKey] = !value ? "aucun" : value === true ? "oui" : value
     })
     
     for(let i = 0; i <= fields.length; i++){

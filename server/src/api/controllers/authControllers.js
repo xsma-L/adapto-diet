@@ -7,7 +7,7 @@ const mailer = require("../../nodemailer")
 const prismaClient = new prisma.PrismaClient()
 
 exports.signup = async (req, res) => {
-    const { first_name, last_name, email, password } = req.body
+    const { first_name, last_name, email, password } = req.body.data
     const hashedPassword = await bcrypt.hash(password, 12)
 
     try {
