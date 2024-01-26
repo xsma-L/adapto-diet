@@ -11,7 +11,7 @@ exports.validateLogin = [
     check('password', 'Password is required').exists()
 ]
 
-exports.isLogged = (req, res, next) => {
+exports.isLogged = async (req, res, next) => {
     const token = req.headers.authorization
 
     if (!token) {
