@@ -1,5 +1,6 @@
 const axios = require("axios")
 const { PrismaClient } = require('@prisma/client')
+const prisma = new PrismaClient();
 
 exports.createDietProfile = async (req, res) => {
     const { formId, responseId } = req.body
@@ -7,7 +8,6 @@ exports.createDietProfile = async (req, res) => {
     
     try {
         const token = req.headers.authorization
-
 
         const getFormResult = await axios.get(`https://api.typeform.com/forms/${formId}/responses?included_response_ids=${responseId}`, {
             headers: { "Authorization": `Bearer ${process.env.TYPEFORM_TOKEN}`}
@@ -17,15 +17,14 @@ exports.createDietProfile = async (req, res) => {
         const informationsData = await sortFormData(form)
         informationsData["userId"] = userId
 
-        const prisma = new PrismaClient();
-        const newInformations = await prisma.informations.create({
+        const dietProfile = await prisma.informations.create({
             data: informationsData,
         })
 
-        res.status(200).send("infos saved")
+        res.status(200).send({ message: "Diet profile saved", dietProfile: dietProfile })
     } catch (error) {
         console.log('error =>', error)
-        res.status(500).json({ message: "error" })
+        res.status(500).send({ message: "error", error: error })
     }
 }
 
@@ -70,4 +69,57 @@ const sortFormData = (data) => {
     const formValues = Object.fromEntries(filtered)
 
     return formValues
+}
+
+exports.getDietProfile = async (req, res) => {
+    const { userId } = res.locals.user
+
+    try {
+        const dietProfile = await prisma.informations.findUnique({
+            where: {
+                userId: userId
+            }
+        })
+
+        res.status(200).send({ message: "Diet profile found", dietProfile: dietProfile })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({ message: "Error", error: error })
+    }
+}
+
+exports.updateDietProfile = async (req, res) => {
+    const { data } = req.body
+    const { userId } = res.locals.user
+
+    try {
+        const dietProfile = await prisma.informations.update({
+            where: { userId: userId },
+            data: data
+        })
+
+        console.log(dietProfile)
+        
+        res.status(200).send({ message: "Diet profile updated", dietProfile: dietProfile })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({ message: "Error", error: error })
+    }
+}
+
+exports.deleteDietProfile = async (req, res) => {
+    const { userId } = res.locals.user
+
+    try {
+        const delteDietProfile = await prisma.informations.delete({
+            where: {
+                userId: userId
+            }
+        })
+
+        res.status(200).send({ message: "Diet profile removed" })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({ message: "Error", error })
+    }
 }
