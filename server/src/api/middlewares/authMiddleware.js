@@ -11,14 +11,12 @@ exports.validateLogin = [
     check('password', 'Password is required').exists()
 ]
 
-exports.isLogged = (req, res, next) => {
+exports.isLogged = async (req, res, next) => {
     const token = req.headers.authorization
 
     if (!token) {
         return res.status(401).json({ message: 'Token non fourni' });
     }
-
-    console.log(token)
 
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
@@ -26,7 +24,7 @@ exports.isLogged = (req, res, next) => {
         }
         
         // Si le token est valide, vous pouvez stocker les informations de l'utilisateur dans req.user
-        req.user = decoded
+        res.locals.user = decoded
         next() // Passez à la route suivante
     })
 }
