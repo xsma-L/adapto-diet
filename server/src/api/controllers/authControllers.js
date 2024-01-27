@@ -36,10 +36,10 @@ exports.signup = async (req, res) => {
         }
 
 
-        res.status(201).json({ message: 'User created'})
+        res.status(201).send({ message: 'User created'})
     } catch (error) {
         console.log(error)
-        res.status(500).json({ message: 'Error creating user' })
+        res.status(500).send({ message: 'Error creating user' })
     }
 }
 
@@ -47,34 +47,50 @@ exports.emailConfirmation = async (req, res) => {
     const { token } = req.body
     const decoded = jwt.decode(token)
 
-    const updateUser = await prismaClient.user.update({
-        where: {
-            email: decoded.email
-        },
-        data: {
-            verified: true
+    try {
+        
+        const updateUser = await prismaClient.user.update({
+            where: {
+                email: decoded.email
+            },
+            data: {
+                verified: true
+            }
+        })
+    
+        if(!updateUser) {
+            res.status(500).send({ message: "Error verifing account" })
         }
-    })
-
-    if(!updateUser) {
-        res.status(500).json({ message: "Error verifing account" })
+    
+        res.status(200).send({ message: "Account verified"})
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({ message: "Error verifing account" })
     }
-
-    res.status(200).json({ message: "Account verified"})
 }
 
 exports.login = async (req, res) => {
     const { email, password } = req.body
 
     try {
-        const user = await prismaClient.user.findUnique({ where: { email } })
+        const user = await prismaClient.user.findUnique({
+            where: { email },
+        })
+
         if (!user || !await bcrypt.compare(password, user.password)) {
-            return res.status(401).json({ message: 'Email or password is incorrect' })
+            return res.status(401).send({ message: 'Email or password is incorrect' })
         }
 
+        const dietRequest = await prismaClient.informations.findUnique({
+            where:{ userId: user.id}
+        })
+
         const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '6h' })
-        res.status(200).json({ token, userId: user.id })
+        const dietProfile = dietRequest ? true : false
+
+        res.status(200).send({ token, userId: user.id, dietProfile: dietProfile})
     } catch (error) {
-        res.status(500).json({ message: 'Login failed' })
+        console.log(error)
+        res.status(500).send({ message: 'Login failed' })
     }
 }
