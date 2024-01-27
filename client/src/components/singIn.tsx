@@ -39,6 +39,7 @@ export default function SignIn({ open, setSignInModal, setConnected } :
         const request = await axios.post<ApiResponse>(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, data)
         Cookies.set('token', request.data.token, { expires: 1 })
         Cookies.set('userId', request.data.userId, { expires: 1 })
+        Cookies.set('dietProfile', request.data.dietProfile ? "done" : "not yet", { expires: 1 })
 
         if(request.status === 200)
 
