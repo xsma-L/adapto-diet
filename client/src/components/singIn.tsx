@@ -16,6 +16,7 @@ import { faUser, faEnvelope, faLock, faX } from "@fortawesome/free-solid-svg-ico
 interface ApiResponse {
     userId: string
     token: string
+    dietProfile: boolean
 }
 
 export default function SignIn({ open, setSignInModal, setConnected } : 
@@ -39,14 +40,19 @@ export default function SignIn({ open, setSignInModal, setConnected } :
         Cookies.set('token', request.data.token, { expires: 1 })
         Cookies.set('userId', request.data.userId, { expires: 1 })
 
+        if(request.status === 200)
+
         setConnected(true)
         setSignInModal(false)
-        
-        router.push('/mon-alimentation')
+
+        if(request.data.dietProfile) {
+            router.push("/dashboard")
+        } else {
+            router.push('/mon-alimentation')
+        }
     } catch (error) {
         console.log(error)
     }
-
 
   }
 
