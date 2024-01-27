@@ -15,12 +15,12 @@ export default function Questionnaire() {
     
     const router = useRouter()
 
-    useEffect(() => {
-        const dietProfile = Cookies.get("dietProfile")
+    // useEffect(() => {
+    //     const dietProfile = Cookies.get("dietProfile")
 
-        if (dietProfile === "done")
-        router.push("/mon-alimentation")
-    },[])
+    //     if (dietProfile === "done")
+    //     router.push("/mon-alimentation")
+    // },[])
 
     const handleFormSubmit = async (formId: String, responseId: string) => {
         try {
